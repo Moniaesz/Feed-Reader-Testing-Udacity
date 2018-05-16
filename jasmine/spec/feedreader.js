@@ -36,7 +36,7 @@ $(function() {
          })
     });
 
-// test of menu element (hidden by default)
+// test of menu element 
     describe('The menu', function() {
 
         let menuIcon = $('.menu-icon-link') ;
@@ -57,7 +57,23 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+// test of .feed container to have at least one entry once loadFeed function is completed
+    describe('Initial Entries', function() {
+
+// ensure that loadFeed function is called and completed
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
+
+// test if there is at least one entry in .feed container
+        it('at least one entry is present in .feed container', function(done) {
+            let entryNum = $('.entry').length;
+            expect(entryNum).not.toBe(0);
+            done();
+        });
+    });
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
