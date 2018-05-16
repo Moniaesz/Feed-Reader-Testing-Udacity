@@ -27,7 +27,7 @@ $(function() {
             };
          });
 
-         // test if every feed's(obejct's) name 
+         // test if every feed's(obejct's) name is defined and not empty
          it('each name is defined and not empty', function() {
             for(let i = 0; i < allFeeds.length; i++) {
                 expect(allFeeds[i].name).toBeDefined();
