@@ -1,13 +1,13 @@
 /* feedreader.js
  *
  * This is the spec file that Jasmine will read and contains
- * all of the tests that will be run against your application.
+ * all of the tests that will be run against application.
  */
 
-/* We're placing all of our tests within the $() function,
- * since some of these tests may require DOM elements. We want
- * to ensure they don't run until the DOM is ready.
- */
+/* All tests are placed within the $() function,
+  to ensure that test don't run until the DOM is ready.
+*/
+
 $(function() {
 
 // test of RSS feeds, reffers to feeds stored as objects in the array assigned to allFeeds variable
@@ -75,17 +75,22 @@ $(function() {
         });
     });
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+// test if content of feeds changes once new feed is loaded
+    describe('New Feed Selection', function() {
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+        const startContent = $('.feed').text();
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
+
+// test if content of .feed element is different before and after loadFeed function is called and completed
+        it('feed content changes after loading', function(done) {
+            const loadedContent = $('.feed').html();
+            expect(startContent).not.toBe(loadedContent);
+            done();
+        })
+    });
 }());
