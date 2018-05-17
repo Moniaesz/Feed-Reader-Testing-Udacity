@@ -40,20 +40,21 @@ $(function() {
     describe('The menu', function() {
 
         let menuIcon = $('.menu-icon-link') ;
+        let body = $('body');
 
 // test if the menu element is hidden by default
         it('menu element is hidden by default', function() {
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect((body).hasClass('menu-hidden')).toBe(true);
         });
 
 // test if menu change when menu icon is clicked
         it('menu element changes visibility on click', function() {
             menuIcon.click();
             // the menu display when clicked
-            expect($('body').hasClass('menu-hidden')).toBe(false);
+            expect((body).hasClass('menu-hidden')).toBe(false);
             menuIcon.click();
             // the menu hide when clicked again
-            expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect((body).hasClass('menu-hidden')).toBe(true);
         });
     });
 
@@ -69,7 +70,7 @@ $(function() {
 
 // test if there is at least one entry in .feed container
         it('at least one entry is present in .feed container', function(done) {
-            let entryNum = $('.entry').length;
+            let entryNum = $('.feed .entry').length;
             expect(entryNum).not.toBe(0);
             done();
         });
@@ -78,19 +79,24 @@ $(function() {
 // test if content of feeds changes once new feed is loaded
     describe('New Feed Selection', function() {
 
-        const startContent = $('.feed').text();
+        let startContent; 
+        let loadedContent;
 
         beforeEach(function(done) {
             loadFeed(0, function() {
+                startContent = $('.feed').html();
+                loadFeed(1, function() {
+                    let loadedContent = $('.feed').html();
                 done();
+                });
             });
         });
 
 // test if content of .feed element is different before and after loadFeed function is called and completed
         it('feed content changes after loading', function(done) {
-            const loadedContent = $('.feed').html();
             expect(startContent).not.toBe(loadedContent);
             done();
-        })
+        });
     });
 }());
+
